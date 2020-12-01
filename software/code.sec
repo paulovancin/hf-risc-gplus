@@ -1,0 +1,29 @@
+
+test.elf:     file format elf32-littleriscv
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00006978  40000000  40000000  00000058  2**2
+                  CONTENTS, ALLOC, LOAD, CODE
+  1 .data         00000168  40006978  40006978  000069d0  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000090  40006ae0  40006ae0  00006b38  2**3
+                  ALLOC
+  3 .debug_info   0000bce5  00000000  00000000  00006b38  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_abbrev 00000d22  00000000  00000000  0001281d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_loc    00008600  00000000  00000000  0001353f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_aranges 00000358  00000000  00000000  0001bb3f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_ranges 00001e08  00000000  00000000  0001be97  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000a202  00000000  00000000  0001dc9f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000011e7  00000000  00000000  00027ea1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .comment      00000011  00000000  00000000  00029088  2**0
+                  CONTENTS, READONLY
+ 11 .riscv.attributes 0000001a  00000000  00000000  00029099  2**0
+                  CONTENTS, READONLY
