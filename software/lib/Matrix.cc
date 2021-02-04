@@ -199,7 +199,7 @@ Complex Matrix::determinant(int order)
 
   if (order >= 4){
 		for (int f = 0; f < order; f++){
-			cofactor(CoFactor, 0, f, order);
+			cofactor(CoFactor, 0, f, order); 
 			D_aux = mul(mul(sign, str[0][f]), CoFactor->determinant((order - 1)));
 			D = D + D_aux;
 			sign = mul(sign,val(-1));
@@ -287,6 +287,7 @@ void Matrix::inverse(Matrix *inv)
 
 	order = row;
 
+
 	Complex Aux[order][order];
   inv->zeros(order, order);
 	b->zeros(order, order);
@@ -332,7 +333,9 @@ void Matrix::inverse(Matrix *inv)
 			}
 		}
 
+
 		d = determinant(order);
+
 
 
 		for (int g = 0; g < order; g++){
@@ -821,6 +824,7 @@ A->column = column;
   Q->setEye(A->get_row());
   R->copy(A);
 
+
   for (int i = 0; i < A->get_column(); i++){
     z->get_part(i, (A->get_row()-1), i, i, R);
     Complex vectorz[z->get_row()];
@@ -845,6 +849,8 @@ A->column = column;
     }
 
 
+
+
     vt->transposed(v);
     P1->multiplication(v,vt);
     P2->multiplication(vt,v);
@@ -862,13 +868,13 @@ A->column = column;
 
     for(int g = i; g < A->get_row(); g++){
       for(int h = 0; h < A->get_column(); h++){
-    //   R->str[g][h] = Raux->str[g-i][h]; // --> In eig, this is fucking up!¹
+        R->str[g][h] = Raux->str[g-i][h]; // --> In eig, this is fucking up!¹
       }
     }
 	//
     for(int g = i; g < A->get_row(); g++){
       for(int h = 0; h < A->get_column(); h++){
-    //   Q->str[g][h] = Qaux->str[g-i][h]; //¹ --> Same thing!
+        Q->str[g][h] = Qaux->str[g-i][h]; //¹ --> Same thing!
       }
     }
   }

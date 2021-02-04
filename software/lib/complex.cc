@@ -176,7 +176,8 @@ Complex Complex::sqrt_C(void)
 {
   typ_var zsqre,zsqim;
 
-  zsqre = fix_sqrt(fix_mul(val(0.5),(this->abs()+this->re())));
+  // zsqre = fix_sqrt(fix_mul(val(0.5),(this->abs()+this->re())));
+  zsqre = fix_sqrt((this->re()));
   zsqim = fix_sqrt(fix_mul(val(0.5),(this->abs()-this->re())));
 
   if (this->im() > val(0.000015)) {

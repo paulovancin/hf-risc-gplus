@@ -4,36 +4,36 @@
 // {
 // 	uint32_t neg = 0, a, b, c, d;
 // 	fixed_t res;
-//
+
 // 	if (x < 0) {
 // 		x = -x;
 // 		neg = 1;
 // 	}
-//
+
 // 	if (y < 0) {
 // 		y = -y;
 // 		neg = neg ^ 1;
 // 	}
-//
+
 // 	a = x >> FIX_FBITS;
 // 	b = x & FIX_FMASK;
 // 	c = y >> FIX_FBITS;
 // 	d = y & FIX_FMASK;
 // 	res = (fixed_t)(((d * b) >> FIX_FBITS) + (d * a) + (c * b) + ((c * a) << FIX_FBITS));
-//
+
 // 	return (neg ? -res : res);
 // }
-//
+
 // fixed_t fix_div(fixed_t x, fixed_t y)
 // {
 // 	uint32_t neg = 0;
 // 	fixed_t res;
-//
+
 // 	if (x < 0) {
 // 		x = -x;
 // 		neg = 1;
 // 	}
-//
+
 // 	if (y < 0) {
 // 		y = -y;
 // 		neg = neg ^ 1;
@@ -78,38 +78,62 @@ void fixtoa(fixed_t a, char *str, int32_t dec)
 	str[slen] = '\0';
 }
 
-fixed_t fix_sqrt(fixed_t a)
+// fixed_t fix_sqrt(fixed_t a)
+// {
+// 	int64_t inv = 0, l, i, s, itr = FIX_FBITS;
+
+// 	if (a < 0)
+// 		return -1;
+// 	if (a == 0 || a == FIX_ONE)
+// 		return a;
+
+// 	if (a < FIX_ONE && a > 6) {
+// 		inv = 1;
+// 		a = fix_div(FIX_ONE, a);
+// 	}
+
+// 	if (a > FIX_ONE) {
+// 		s = a;
+// 		itr = 0;
+// 		while (s > 0) {
+// 			s >>= 2;
+// 			itr++;
+// 		}
+// 	}
+
+
+// 	l = (a >> 1) + 1;
+// 	for (i = 0; i < itr; i++)
+// 		l = (l + fix_div(a, l)) >> 1;
+
+// 	if (inv)
+// 		return fix_div(FIX_ONE, l);
+
+// 	return l;
+// }
+
+fixed_t fix_sqrt(fixed_t x)
 {
-	int64_t inv = 0, l, i, s, itr = FIX_FBITS;
-
-	if (a < 0)
-		return -1;
-	if (a == 0 || a == FIX_ONE)
-		return a;
-
-	if (a < FIX_ONE && a > 6) {
-		inv = 1;
-		a = fix_div(FIX_ONE, a);
-	}
-
-	if (a > FIX_ONE) {
-		s = a;
-		itr = 0;
-		while (s > 0) {
-			s >>= 2;
-			itr++;
-		}
-	}
-
-	l = (a >> 1) + 1;
-	for (i = 0; i < itr; i++)
-		l = (l + fix_div(a, l)) >> 1;
-
-	if (inv)
-		return fix_div(FIX_ONE, l);
-
-	return l;
+    uint32_t t, q, b, r;
+    r = x;
+    b = 0x40000000;
+    q = 0;
+    while( b > 0x40 )
+    {
+        t = q + b;
+        if( r >= t )
+        {
+            r -= t;
+            q = t + b; // equivalent to q += 2*b
+        }
+        r <<= 1;
+        b >>= 1;
+    }
+    q >>= 8;
+    return q;
 }
+
+
 
 fixed_t fix_exp(fixed_t fp)
 {
